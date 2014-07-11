@@ -2,6 +2,13 @@ var qs = require('qs'),
 	apiUrl = 'http://localhost:3000',
 	request = require('request-json'),
 	client = request.newClient(apiUrl);
+function makeRequest(method, url, params, _callback){
+	client[method](url, params, function(err, response, json){
+		if(!checkResponse(err, response, _callback)) return;
+
+		_callback(null, json);
+	})
+}
 function checkResponse(err, apiRes, next){
     if(err) return next(err);
 
@@ -15,11 +22,7 @@ module.exports = {
 	getBoards: function(_callback){
 		var route = '/boards';
 
-		client.get(route, function(err, response, json){
-			if(!checkResponse(err, response, _callback)) return;
-
-			_callback(null, json);
-		});
+		makeRequest('get', route, null, _callback);
 	},
 	getBoard: function(shortname, _callback){
 		var route = '/board/';
@@ -28,11 +31,7 @@ module.exports = {
 			route += shortname;
 		}
 
-		client.get(route, function(err, response, json){
-			if(!checkResponse(err, response, _callback)) return;
-
-			_callback(null, json);
-		});
+		makeRequest('get', route, null, _callback);
 	},
 	getThread: function(thread, page, _callback){
 		var route = '/thread/';
@@ -45,11 +44,7 @@ module.exports = {
 			route += '/' + page;
 		}
 
-		client.get(route, function(err, response, json){
-			if(!checkResponse(err, response, _callback)) return;
-
-			_callback(null, json);
-		});
+		makeRequest('get', route, null, _callback);
 	},
 	getIndexThreads: function(board, page, _callback){
 		var route = '/threads/';
@@ -64,11 +59,7 @@ module.exports = {
 			route += '/' + page;
 		}
 
-		client.get(route, function(err, response, json){
-			if(!checkResponse(err, response, _callback)) return;
-
-			_callback(null, json);
-		});
+		makeRequest('get', route, null, _callback);
 	},
 	getTotalThreads: function(board, _callback){
 		var route = '/totalThreads/';
@@ -79,11 +70,7 @@ module.exports = {
 			route += 'all';
 		}
 
-		client.get(route, function(err, response, json){
-			if(!checkResponse(err, response, _callback)) return;
-
-			_callback(null, json);
-		});
+		makeRequest('get', route, null, _callback);
 	},
 	newThread: function(params, _callback){
 		var route = '/newThread';
@@ -92,11 +79,7 @@ module.exports = {
 			params = {};
 		}
 
-		client.post(route, params, function(err, response, json){
-			if(!checkResponse(err, response, _callback)) return;
-
-			_callback(null, json);
-		});
+		makeRequest('post', route, params, _callback);
 	},
 	newReply: function(params, _callback){
 		var route = '/newReply';
@@ -105,10 +88,6 @@ module.exports = {
 			params = {};
 		}
 
-		client.post(route, params, function(err, response, json){
-			if(!checkResponse(err, response, _callback)) return;
-
-			_callback(null, json);
-		});
+		makeRequest('post', route, params, _callback);
 	}
 };

@@ -1,7 +1,14 @@
 var qs = require('qs'),
+	_ = require('lodash'),
 	apiUrl = 'http://localhost:3000',
 	request = require('request-json'),
 	client = request.newClient(apiUrl);
+var _errorCodes = _([500, 401, 404]),
+	errorBodies = {
+		401: 'Unauthorised',
+		404: 'Route not found',
+ 		500: 'API error'
+	};
 function makeRequest(method, url, params, _callback){
 	client[method](url, params, function(err, response, json){
 		if(!checkResponse(err, response, _callback)) return;
@@ -12,8 +19,8 @@ function makeRequest(method, url, params, _callback){
 function checkResponse(err, apiRes, next){
     if(err) return next(err);
 
-    if(apiRes && [500, 401, 404].indexOf(apiRes.statusCode) > -1){
-        next(new Error(JSON.stringify(apiRes.body)));
+    if(apiRes && _errorCodes.indexOf(apiRes.statusCode) > -1){
+        next(new Error(apiRes.body || errorBodies[apiRes.statusCode]));
         return false;
     }
     return true;

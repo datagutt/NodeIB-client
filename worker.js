@@ -122,6 +122,7 @@ function setup(app, siteName){
 
 			next();
 	});
+	app.use(require('./errorHandler'));
 }
 
 function setupRoutes(_callback){

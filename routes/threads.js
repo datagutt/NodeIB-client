@@ -23,7 +23,13 @@ var template = '<ul class="pure-paginator">'
 	+ '</ul>';
 module.exports = function threads(app, apiClient){
 	app.route('/:shortname')
-	.get(function(req, res){
+	.all(function(req, res, next){
+		// Check if user is requesting a board, another route or a file
+		if(app.locals.boardNames.indexOf(req.params.shortname) !== -1){
+			return next();
+		}
+	})
+	.get(function(req, res, next){
 		var shortName = req.params.shortname,
 			page = req.query.page ? parseInt(req.query.page, 10) : 1
 			perPage = nconf.get('board:threadsPerPage'),
@@ -44,16 +50,13 @@ module.exports = function threads(app, apiClient){
 				});
 			},
 			function(board, threads, _callback){
-				if(!board || !board.hasOwnProperty('name')){
-					var e = new Error('Board not found');
-					return _callback(e);
-				}
 				var boardName = board.name.toLowerCase();
 				apiClient.getTotalThreads(boardName, function(err, json){
 					_callback(err, board, threads, json.total);
 				});
 			}
 		], function(err, board, threads, total){
+			if(err) return next(err);
 			if(board){
 				var paginator = new pagination.TemplatePaginator({
 					'prelink': '/' + shortName + '/',
@@ -72,7 +75,7 @@ module.exports = function threads(app, apiClient){
 			}
 		});
 	})
-	.post(function(req, res){
+	.post(function(req, res, next){
 		var shortName = req.params.shortname;
 
 		async.waterfall([
@@ -98,9 +101,7 @@ module.exports = function threads(app, apiClient){
 				}, _callback);
 			}
 		], function(err, thread){
-			if(err){
-				return res.json(JSON.parse(err.message));
-			}
+			if(err) return next(err);
 
 			if(thread){
 				res.redirect('/' + shortName);
@@ -108,7 +109,7 @@ module.exports = function threads(app, apiClient){
 		});
 	});
 	app.route('/:shortname/thread/:thread')
-	.get(function(req, res){
+	.get(function(req, res, next){
 		var shortName = req.params.shortname,
 			thread = req.params.thread,
 			page = req.query.page ? parseInt(req.query.page, 10) : 1
@@ -130,6 +131,7 @@ module.exports = function threads(app, apiClient){
 				});
 			}
 		], function(err, board, thread){
+			if(err) return next(err);
 			if(board && Object.keys(thread).length){
 				if(thread && threads.replies && thread.replies.length){
 					var totalResult = thread.replies.length;
@@ -153,7 +155,7 @@ module.exports = function threads(app, apiClient){
 			}
 		});
 	})
-	.post(function(req, res){
+	.post(function(req, res, next){
 		var shortName = req.params.shortname,
 			thread = req.params.thread;
 
@@ -180,9 +182,7 @@ module.exports = function threads(app, apiClient){
 				}, _callback);
 			}
 		], function(err, thread){
-			if(err){
-				return res.json(JSON.parse(err.message));
-			}
+			if(err) return next(err);
 
 			if(thread){
 				res.redirect('/' + shortName + '/thread/' + thread.parent);

@@ -20,7 +20,7 @@ function checkResponse(err, apiRes, next){
     if(err) return next(err);
 
     if(apiRes && _errorCodes.indexOf(apiRes.statusCode) > -1){
-        next(new Error(apiRes.body || errorBodies[apiRes.statusCode]));
+        next(new Error(JSON.stringify(apiRes.body) || errorBodies[apiRes.statusCode]));
         return false;
     }
     return true;

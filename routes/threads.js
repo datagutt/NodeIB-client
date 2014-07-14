@@ -27,6 +27,9 @@ module.exports = function threads(app, apiClient){
 		// Check if user is requesting a board, another route or a file
 		if(app.locals.boardNames.indexOf(req.params.shortname) !== -1){
 			return next();
+		}else{
+			res.status(404);
+			res.render('404.html');
 		}
 	})
 	.get(function(req, res, next){

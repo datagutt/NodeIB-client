@@ -3,6 +3,8 @@
 @postName: #117743;
 @postTrip: #228854;
 @replyLink: inherit;
+@replyBackground: #E9E9E9;
+@replyHighlightBackground: lighten(@replyBackground, 3%);
 /* Post */
 .thread:after {
 	clear: both;
@@ -89,26 +91,32 @@
 .post {
 	margin: 4px 0;
 	overflow: hidden;
-}
-.post.reply {
-	background-color: #E9E9E9;
-	border: 1px solid #CCC;
-	border-width: 1px;
-	border-style: none solid solid none;
-	display: block;
-	margin: 0.2em 16px;
-	padding: 0.2em 0.3em 0.5em 0.6em;
-}
-#first-post {
-	.post-body {
-		padding-bottom: 10px;
+
+	&.reply {
+		background-color: @replyBackground;
+		border: 1px solid #CCC;
+		border-width: 1px;
+		border-style: none solid solid none;
+		display: block;
+		margin: 0.2em 16px;
+		padding: 0.2em 0.3em 0.5em 0.6em;
+		.transition(background-color);
+
+		&.highlighted {
+			background-color: @replyHighlightBackground;
+		}
 	}
-}
-.post-body {
-	display: block;
-	font-size: 14px;
-	word-wrap: break-word;
-	white-space: pre-wrap;
+	&.op {
+		.post-body {
+			padding-bottom: 10px;
+		}
+	}
+	.post-body {
+		display: block;
+		font-size: 14px;
+		word-wrap: break-word;
+		white-space: pre-wrap;
+	}
 }
 .omitted {
 	display: block;

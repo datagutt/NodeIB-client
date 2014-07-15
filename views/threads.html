@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% set scripts = ['thread.js'] %}
 {% block content %}
 <div class="pure-u-1">
 	<form id="thread-form" method="post" enctype="multipart/form-data"  action="/{{ board.shortname}}" class="pure-form pure-form-stacked pure-g">

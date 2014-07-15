@@ -7,3 +7,9 @@
 	-webkit-background-clip: padding-box;
 	background-clip:         padding-box;
 }
+.transition(@transition: all, @duration:0.2s, @ease:ease-out) {
+  -webkit-transition: @transition @duration @ease;
+  -moz-transition: @transition @duration @ease;
+  -o-transition: @transition @duration @ease;
+  transition: @transition @duration @ease;
+}

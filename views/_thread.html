@@ -1,5 +1,5 @@
-<article id="thread-{{ thread._id }}" class="thread">
-	<div id="first-post" class="post">
+<article id="t{{ thread._id }}" class="thread">
+	<div id="p{{ thread._id }}" class="post op">
 		{% if thread.file %}
 		<div class="post-file">
 			<div class="text">
@@ -29,6 +29,9 @@
 				{% if thread.file %}
 				<i class="fa fa-thumb-tack"></i>
 				{% endif %}
+				<a class="ref-link no" href="/{{ board.shortname }}/thread/{{ thread._id }}#{{ thread._id }}" data-num="{{ thread._id }}" title="Link to this post">No.</a>
+				<a class="ref-link val" href="/{{ board.shortname }}/thread/{{ thread._id }}#i{{ thread._id }}" data-num="{{ thread._id }}" title="Reply to this post">{{ thread._id }}.</a>
+
 				<a href="/{{ board.shortname }}/thread/{{ thread._id }}" class="reply-link">[Reply]</a>
 			</span>
 		</header>
@@ -39,7 +42,7 @@
 	</div>
 	<div class="replies">
 		{% for post in thread.replies %}
-		<div class="post reply">
+		<div id="p{{ post._id }}" class="post reply">
 			<header class="post-header">
 				<span class="info">
 					<span class="posted-by">
@@ -52,6 +55,8 @@
 					{% if thread.file %}
 					<i class="fa fa-thumb-tack"></i>
 					{% endif %}
+					<a class="ref-link no" href="/{{ board.shortname }}/thread/{{ post.parent }}#{{ post._id }}" data-num="{{ post._id }}" title="Link to this post">No.</a>
+					<a class="ref-link val" href="/{{ board.shortname }}/thread/{{ post.parent }}#i{{ post._id }}"  data-num="{{ post._id }}" title="Reply to this post">{{ post._id }}.</a>
 				</span>
 			</header>
 			{% if post.file %}

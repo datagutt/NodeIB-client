@@ -18,7 +18,11 @@
 			ID.forEach(postVals, function(postVal){
 				ID.attachListener(postVal, 'click', function(e){
 					var num = ID.getElementData(postVal, 'num');
-					ID.setInputValue(textarea, '>>' + num + '\n');
+					if(ID.insertAtCaret){
+						ID.insertAtCaret(textarea, '>>' + num + '\n');
+					}else if(ID.areFeatures('setInputValue')){
+						ID.setInputValue(textarea, '>>' + num + '\n');
+					}
 					textarea.focus();
 				});
 			});
@@ -32,8 +36,12 @@
 			var num = matches[2];
 
 			if(doInsert && (textarea && !textarea.value)){
-				ID.setInputValue(textarea, '>>' + num + '\n');
-				textarea.focus();
+					if(ID.insertAtCaret){
+						ID.insertAtCaret(textarea, '>>' + num + '\n');
+					}else if(ID.areFeatures('setInputValue')){
+						ID.setInputValue(textarea, '>>' + num + '\n');
+					}
+					textarea.focus();
 				return;
 			}
 

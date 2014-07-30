@@ -6,7 +6,7 @@ function renderError(req, res, next, errorMessage){
 }
 module.exports = function(err, req, res, next){
 	if(err.code === 'ECONNREFUSED'){
-		return renderError(req, res, 'Could not connect to the API!');
+		return renderError(req, res, next, 'Could not connect to the API!');
 	}
-	renderError(req, res, next, 'Unknown error. Maybe this will help: ' + err.toString());
+	renderError(req, res, next, 'Unknown error. The sarver said: ' + err.toString());
 };

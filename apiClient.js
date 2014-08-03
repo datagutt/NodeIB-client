@@ -58,8 +58,6 @@ module.exports = {
 
 		if(board){
 			route += board;
-		}else{
-			route += 'all';
 		}
 
 		if(page){
@@ -73,10 +71,8 @@ module.exports = {
 
 		if(board){
 			route += board;
-		}else{
-			route += 'all';
 		}
-
+		
 		makeRequest('get', route, null, _callback);
 	},
 	newThread: function(params, _callback){

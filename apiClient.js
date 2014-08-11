@@ -40,6 +40,11 @@ module.exports = {
 
 		makeRequest('get', route, null, _callback);
 	},
+	getConfig: function(_callback){
+		var route = '/config';
+
+		makeRequest('get', route, null, _callback);
+	},
 	getThread: function(thread, page, _callback){
 		var route = '/thread/';
 

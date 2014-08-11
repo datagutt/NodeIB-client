@@ -18,14 +18,6 @@
 			'upload_url':  '/public/uploads',
 			'date_format': 'm/d/y (D) G:H',
 			'cluster': false
-		},
-		'board': {
-			'threadsPerPage': 10,
-			'repliesShown': 5,
-			'maxThreads': 100,
-			'op': {
-				'fileRequired': true
-			}
 		}
 	});
 

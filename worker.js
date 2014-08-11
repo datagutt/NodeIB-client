@@ -87,6 +87,7 @@ function setup(app, siteName){
 	};
 
 	async.waterfall([
+		getConfig,
 		setupRoutes,
 		apiClient.getBoards,
 		function(boards, _callback){
@@ -123,6 +124,13 @@ function setup(app, siteName){
 			next();
 	});
 	app.use(require('./errorHandler'));
+}
+
+function getConfig(fn){
+	apiClient.getConfig(function(err, config){
+		nconf.set('board', config.board);
+		fn(err);
+	});
 }
 
 function setupRoutes(_callback){

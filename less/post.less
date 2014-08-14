@@ -1,10 +1,10 @@
-@threadSubject: #0f0c5d;
-@postInfo: #777;
-@postName: #117743;
-@postTrip: #228854;
-@replyLink: inherit;
-@replyBackground: #E9E9E9;
-@replyHighlightBackground: lighten(@replyBackground, 3%);
+@thread-subject: #0f0c5d;
+@post-info: #777;
+@post-name: #117743;
+@post-trip: #228854;
+@reply-link: inherit;
+@reply-background: #E9E9E9;
+@reply-highlight-background: lighten(@reply-background, 3%);
 /* Post */
 .thread:after {
 	clear: both;
@@ -42,7 +42,7 @@
 .post-header {
 	.subject {
 		font-weight: bold;
-		color: @threadSubject;
+		color: @thread-subject;
 		padding: 0;
 		margin: 0;
 		font-size: 1em;
@@ -58,10 +58,10 @@
 		font-size: 15px;
 		margin: 0 0 12px 0;
 		padding: 0;
-		color: @postInfo;
+		color: @post-info;
 	}
 	.reply-link {
-		color: @replyLink;
+		color: @reply-link;
 		font-weight: bold;
 	}
 	.posted-by {
@@ -72,11 +72,11 @@
 		font-weight: 800;
 	}
 	.posted-by .name {
-		color: @postName;
+		color: @post-name;
 		font-weight: bold;
 	}
 	.tripcode {
-		color: @postTrip;
+		color: @post-trip;
 		font-weight: normal;
 	}
 	.post-ago {
@@ -84,7 +84,7 @@
 		font-size: 15px;
 			a,
 			a:visited {
-				color: @postInfo;
+				color: @post-info;
 			}
 	}
 }
@@ -93,7 +93,7 @@
 	overflow: hidden;
 
 	&.reply {
-		background-color: @replyBackground;
+		background-color: @reply-background;
 		border: 1px solid #CCC;
 		border-width: 1px;
 		border-style: none solid solid none;
@@ -103,7 +103,7 @@
 		.transition(background-color);
 
 		&.highlighted {
-			background-color: @replyHighlightBackground;
+			background-color: @reply-highlight-background;
 		}
 	}
 	&.op {

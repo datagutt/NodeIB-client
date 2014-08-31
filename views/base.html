@@ -37,23 +37,15 @@
 	{% if landingPage %}
 	<div class="home-background">
 		<div class="bg-container">
-			<div class="item"><img src='http://placekitten.com/300/315' class="pure-img"></div>
-			<div class="item"><img src='http://placekitten.com/300/315' class="pure-img"></div>
-			<div class="item"><img src='http://placekitten.com/300/315' class="pure-img"></div>
-			<div class="item"><img src='http://placekitten.com/300/315' class="pure-img"></div>
-			<div class="item"><img src='http://placekitten.com/300/315' class="pure-img"></div>
-			<div class="item"><img src='http://placekitten.com/300/315' class="pure-img"></div>
-			<div class="item"><img src='http://placekitten.com/300/315' class="pure-img"></div>
-			<div class="item"><img src='http://placekitten.com/300/315' class="pure-img"></div>
-			<div class="item"><img src='http://placekitten.com/300/315' class="pure-img"></div>
-			<div class="item"><img src='http://placekitten.com/300/315' class="pure-img"></div>
-			<div class="item"><img src='http://placekitten.com/300/315' class="pure-img"></div>
-			<div class="item"><img src='http://placekitten.com/300/315' class="pure-img"></div>
+			{% set looptimes = 1 %}
+			{% for i in Array.prototype.constructor.call(null, looptimes) %}
+			<div class="item"><img src='http://placekitten.com/1920/1080' width="1920" height="1080"></div>
+			{% endfor %}
 		</div>
 	</div>
 	<div class="home-background-overlay"></div>
 	{% endif %}
-	<header id="top">
+	<header id="top" class="wrap">
 		<div class="pure-menu pure-menu-open pure-menu-horizontal navbar">
 			<a href="/" class="pure-menu-heading">{{ siteName }}</a>
 			<ul {% if landingPage %} class="navbar navbar-right"{% endif %} role="navigation" >
@@ -63,12 +55,12 @@
 			</ul>
 		</div>
 	</header>
-	<main>
+	<main class="wrap">
 		<div id="content">
 {% block content %}{% endblock %}
 		</div>
 	</main>
-	<footer id="footer" class="pure-g">
+	<footer id="footer" class="pure-g wrap">
 		<div class="pure-u-2-5">
 			<p>{{ siteName }} &copy; {{ now()|date('Y') }}</p>
 		</div>

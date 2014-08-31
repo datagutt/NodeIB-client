@@ -23,20 +23,15 @@ var template = '<ul class="pure-paginator">'
 	+ '</ul>';
 module.exports = function threads(app, apiClient){
 	app.route('/:shortname')
-	.all(function(req, res, next){
-		// Check if user is requesting a board, another route or a file
-		if(app.locals.boardNames.indexOf(req.params.shortname) !== -1){
-			return next();
-		}else{
-			res.status(404);
-			res.render('404.html');
-		}
-	})
 	.get(function(req, res, next){
 		var shortName = req.params.shortname,
 			page = req.query.page ? parseInt(req.query.page, 10) : 1
 			perPage = nconf.get('board:threadsPerPage'),
 			offset = (page - 1) * perPage;
+
+		if(app.locals.boardNames.indexOf(req.params.shortname) == -1){
+			return next();
+		}
 
 		async.waterfall([
 			function(_callback){
@@ -81,6 +76,10 @@ module.exports = function threads(app, apiClient){
 	.post(function(req, res, next){
 		var shortName = req.params.shortname;
 
+		if(app.locals.boardNames.indexOf(req.params.shortname) == -1){
+			return next();
+		}
+		
 		async.waterfall([
 			function(_callback){
 				apiClient.getBoard(shortName, _callback);

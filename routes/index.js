@@ -3,7 +3,8 @@ var async = require('async'),
 module.exports = function(app, _callback){
 	var routes = [
 		'threads',
-		'boards'
+		'boards',
+		'home'
 	];
 
 	async.forEach(routes, function(route, next){

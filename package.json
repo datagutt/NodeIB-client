@@ -33,6 +33,7 @@
     "fs-extra": "^0.11.0",
     "less-middleware": "^1.0.3",
     "lodash": "~2.4.1",
+    "moment": "^2.8.3",
     "multer": "^0.1.0",
     "nconf": "~0.6.9",
     "node-uuid": "~1.4.1",

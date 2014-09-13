@@ -16,7 +16,7 @@
 			'port': 3100,
 			'siteName': 'NodeIB',
 			'upload_url':  '/public/uploads',
-			'date_format': 'm/d/y (D) G:H',
+			'date_format': 'ddd D MMM YYYY HH:mm:ss',
 			'cluster': false
 		}
 	});

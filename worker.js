@@ -76,6 +76,7 @@ function setup(app, siteName){
 	app.locals.siteName = siteName;
 	// Helpers
 	app.locals.slug = require('slug');
+	app.locals.moment = require('moment');
 	app.locals.now = function(){
 		return new Date();
 	};
@@ -85,7 +86,6 @@ function setup(app, siteName){
 		var ago = timeago(new Date(time));
 		return ago;
 	};
-
 	async.waterfall([
 		getConfig,
 		setupRoutes,

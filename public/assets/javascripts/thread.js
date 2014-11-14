@@ -12,6 +12,20 @@
 				});
 			});
 
+			if(ID.areFeatures('getHtml', 'setHtml')){
+				var postBodys = ID.query('.post-body');
+				// Could be done better?
+				ID.forEach(postBodys, function(postBody){
+					var postHtml = ID.getHtml(postBody);
+					var pattern = /(&gt;&gt;)(\d+)+/g;
+					var newContent = postHtml.replace(pattern, function(match, text){
+						var id = match.replace('&gt;&gt;', '');
+						return '<a href="#p' + id + '">' + match + '</a>';
+					});
+					ID.setHtml(postBody, newContent);
+				});
+			}
+
 			var postVals = ID.query('.ref-link.val');
 			// Different IDs are used (thread-form, reply-form), so i do this hacky selector instead
 			var textarea = ID.queryOne('.pure-form textarea[name="comment"]');

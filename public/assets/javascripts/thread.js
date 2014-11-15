@@ -50,13 +50,12 @@
 			var num = matches[2];
 
 			if(doInsert && (textarea && !textarea.value)){
-					if(ID.insertAtCaret){
-						ID.insertAtCaret(textarea, '>>' + num + '\n');
-					}else if(ID.areFeatures('setInputValue')){
-						ID.setInputValue(textarea, '>>' + num + '\n');
-					}
-					textarea.focus();
-				return;
+				if(ID.insertAtCaret){
+					ID.insertAtCaret(textarea, '>>' + num + '\n');
+				}else if(ID.areFeatures('setInputValue')){
+					ID.setInputValue(textarea, '>>' + num + '\n');
+				}
+				textarea.focus();
 			}
 
 			self.highlightPost(num);

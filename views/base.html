@@ -42,11 +42,11 @@
 	<div class="home-background-overlay"></div>
 	{% endif %}
 	<header id="top" class="wrap">
-		<div class="pure-menu pure-menu-open pure-menu-horizontal navbar">
+		<div class="pure-menu pure-menu-horizontal navbar">
 			<a href="/" class="pure-menu-heading">{{ siteName }}</a>
-			<ul {% if landingPage %} class="navbar navbar-right"{% endif %} role="navigation" >
+			<ul class="{% if landingPage %} navbar navbar-right {% endif %}pure-menu-list"role="navigation" >
 				{% for board in boards %}
-				<li class="{% if board.shortname == currentBoard %}pure-menu-selected {% endif %}"><a href="/{{ board.shortname}}/" title="/{{ board.shortname }}/">{{ board.name }}</a></li>
+				<li class="pure-menu-item {% if board.shortname == currentBoard %}pure-menu-selected {% endif %}"><a href="/{{ board.shortname}}/" title="/{{ board.shortname }}/" class="pure-menu-link">{{ board.name }}</a></li>
 				{% endfor %}
 			</ul>
 		</div>

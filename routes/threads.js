@@ -25,7 +25,7 @@ module.exports = function threads(app, apiClient){
 	app.route('/:shortname')
 	.get(function(req, res, next){
 		var shortName = req.params.shortname,
-			page = req.query.page ? parseInt(req.query.page, 10) : 1
+			page = (req.query.page && parseInt(req.query.page, 10)) ? parseInt(req.query.page, 10) : 1
 			perPage = nconf.get('board:threadsPerPage'),
 			offset = (page - 1) * perPage;
 
@@ -58,8 +58,8 @@ module.exports = function threads(app, apiClient){
 			if(board){
 				var paginator = new pagination.TemplatePaginator({
 					'prelink': '/' + shortName + '/',
-					'current': +page,
-					'rowsPerPage': +perPage,
+					'current': page,
+					'rowsPerPage': perPage,
 					'totalResult': total || 0,
 					'template': template
 				});
@@ -114,7 +114,7 @@ module.exports = function threads(app, apiClient){
 	.get(function(req, res, next){
 		var shortName = req.params.shortname,
 			thread = req.params.thread,
-			page = req.query.page ? parseInt(req.query.page, 10) : 1
+			page = (req.query.page && parseInt(req.query.page, 10)) ? parseInt(req.query.page, 10) : 1
 			perPage = nconf.get('board:threadsPerPage'),
 			offset = (page - 1) * perPage;
 
@@ -142,8 +142,8 @@ module.exports = function threads(app, apiClient){
 				}
 				var paginator = new pagination.TemplatePaginator({
 					'prelink': '/' + shortName + '/thread/' + thread,
-					'current': +page,
-					'rowsPerPage': +perPage,
+					'current': page,
+					'rowsPerPage': perPage,
 					'totalResult': totalResult,
 					'template': template
 				});

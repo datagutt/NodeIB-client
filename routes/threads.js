@@ -142,8 +142,8 @@ module.exports = function threads(app, apiClient){
 				}
 				var paginator = new pagination.TemplatePaginator({
 					'prelink': '/' + shortName + '/thread/' + thread,
-					'current': page,
-					'rowsPerPage': perPage,
+					'current': +page,
+					'rowsPerPage': +perPage,
 					'totalResult': totalResult,
 					'template': template
 				});
